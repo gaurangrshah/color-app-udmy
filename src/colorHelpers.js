@@ -58,6 +58,7 @@ function getScale(hexColor, numberOfColors) {
 function generatePalette(starterPalette) {
   let newPalette = {
     paletteName: starterPalette.paletteName,
+    id: starterPalette.id,
     emoji: starterPalette.emoji,
     colors: {}
   };
@@ -92,7 +93,7 @@ function generatePalette(starterPalette) {
       });
     }
   }
-  console.log(newPalette);
+  console.log("newPalette", newPalette);
   return newPalette;
 }
 

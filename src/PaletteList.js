@@ -5,7 +5,7 @@ import MiniPalette from "./MiniPalette";
 const styles = {
   root: {
     backgroundColor: "blue",
-    height: "100%",
+    height: "100vh",
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center"
@@ -32,14 +32,14 @@ const styles = {
   }
 };
 class PaletteList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
+  goToPalette(id) {
+    console.log("ran handleClick: gotopalette");
+    // accessing the browser's {history} passed in via routeProps
+    this.props.history.push(`/palette/${id}`);
   }
   render() {
+    // classes represents the styles defined above, passed into props by withStyles(HOC)
     const { palettes, classes } = this.props;
-    // classes represents the styles defined above, passed in by withStyles(HOC)
     return (
       <div className={this.props.classes.root}>
         <div className={classes.container}>
@@ -48,9 +48,12 @@ class PaletteList extends Component {
           </nav>
           <div className={classes.palettes}>
             {palettes.map(palette => (
-              <p key={palette.id}>
-                <MiniPalette {...palette} />
-              </p>
+              <div key={palette.id}>
+                <MiniPalette
+                  {...palette}
+                  handleClick={() => this.goToPalette(palette.id)}
+                />
+              </div>
             ))}
           </div>
         </div>

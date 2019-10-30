@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
@@ -16,7 +15,11 @@ const styles = {
     }
   },
   colors: {
-    // backgroundColor: "grey"
+    backgroundColor: "#dae1e4",
+    height: "150px",
+    width: "100%",
+    borderRadius: "5px",
+    overflow: "hidden"
   },
   title: {
     display: "flex",
@@ -31,25 +34,39 @@ const styles = {
   emoji: {
     marginLeft: "0.5rem",
     fontSize: "1.5rem"
+  },
+  miniColor: {
+    height: "25%",
+    width: "20%",
+    display: "inline-block",
+    position: "relative",
+    marginBottom: "-3.5px"
   }
 };
 
 function MiniPalette(props) {
   // access classes from props, defined above as "styles"
-  const { classes, paletteName, emoji, id } = props;
-  console.log(classes);
+  const { classes, paletteName, emoji, colors, handleClick } = props;
   // creates a unique class name: classes: {main: "MiniPalette-main-1"}
+  // console.log(classes);
+
+  const miniColorBoxes = colors.map(color => {
+    return (
+      <div
+        className={classes.miniColor}
+        style={{ backgroundColor: color.color }}
+        key={color.name}
+      />
+    );
+  });
   return (
     // use the unique className provided by withStyles from props:
-    <div className={classes.root}>
-      <div className={classes.colors}>
-        <h5 className={classes.title}>
-          <Link exact to={`/palette/${id}`}>
-            {paletteName}
-          </Link>
-          <span className={classes.emoji}>{emoji}</span>
-        </h5>
-      </div>
+    <div className={classes.root} onClick={handleClick}>
+      <div className={classes.colors}>{miniColorBoxes}</div>
+      <h5 className={classes.title}>
+        {paletteName}
+        <span className={classes.emoji}>{emoji}</span>
+      </h5>
     </div>
   );
 }

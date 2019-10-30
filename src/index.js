@@ -17,7 +17,10 @@ function App() {
       <Route
         exact
         path="/"
-        render={() => <PaletteList palettes={seedColors} />}
+        render={routeProps => (
+          // assigns and passes in routeProps, allowing access to browser's {history}
+          <PaletteList palettes={seedColors} {...routeProps} />
+        )}
       />
       <Route
         exact

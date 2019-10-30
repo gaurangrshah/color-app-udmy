@@ -16,7 +16,7 @@ const styles = {
     }
   },
   colors: {
-    backgroundColor: "grey"
+    // backgroundColor: "grey"
   },
   title: {
     display: "flex",
@@ -25,7 +25,7 @@ const styles = {
     margin: "0",
     color: "black",
     paddingTop: "0.5rem",
-    fontSize: "1.5rem",
+    fontSize: "0.5rem",
     position: "relative"
   },
   emoji: {

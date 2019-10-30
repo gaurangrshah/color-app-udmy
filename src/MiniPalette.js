@@ -1,37 +1,55 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
   // define classes:
-  main: {
-    backgroundColor: "purple",
-    border: "3px solid teal"
-  },
-  // classes can also be nested:
-  secondary: {
-    backgroundColor: "Pink",
-    "&h1": {
-      color: "white",
-      "& span": {
-        backgroundColor: "yellow"
-      }
+  root: {
+    backgroundColor: "white",
+    border: "1px solid black",
+    borderRadius: "5px",
+    padding: "0.5rem",
+    position: "relative",
+    overflow: "hidden",
+    "&:hover": {
+      cursor: "pointer"
     }
+  },
+  colors: {
+    backgroundColor: "grey"
+  },
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "0",
+    color: "black",
+    paddingTop: "0.5rem",
+    fontSize: "1.5rem",
+    position: "relative"
+  },
+  emoji: {
+    marginLeft: "0.5rem",
+    fontSize: "1.5rem"
   }
 };
 
 function MiniPalette(props) {
   // access classes from props, defined above as "styles"
-  const { classes } = props;
+  const { classes, paletteName, emoji, id } = props;
   console.log(classes);
   // creates a unique class name: classes: {main: "MiniPalette-main-1"}
   return (
     // use the unique className provided by withStyles from props:
-    <div className={classes.main}>
-      <h1>MiniPalette</h1>
-      <section className={classes.secondary}>
-        <h1>MiniPalette Palettes:</h1>
-        <span>This is a span</span>
-      </section>
+    <div className={classes.root}>
+      <div className={classes.colors}>
+        <h5 className={classes.title}>
+          <Link exact to={`/palette/${id}`}>
+            {paletteName}
+          </Link>
+          <span className={classes.emoji}>{emoji}</span>
+        </h5>
+      </div>
     </div>
   );
 }

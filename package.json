@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "dependencies": {
     "chroma-js": "2.0.6",
+    "rc-slider": "8.7.1",
     "react": "16.8.6",
     "react-copy-to-clipboard": "5.0.1",
     "react-dom": "16.8.6",

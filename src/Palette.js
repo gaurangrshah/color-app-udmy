@@ -22,12 +22,12 @@ class Palette extends Component {
   }
 
   render() {
-    const { colors } = this.props.palette;
+    const { colors, paletteName, emoji } = this.props.palette;
     const { level, format } = this.state;
     // console.log(generatePalette(seedColors[4]));
     // console.log(colors);
     const colorboxes = colors[level].map(color => (
-      <ColorBox background={color[format]} name={color.name} />
+      <ColorBox key={color.id} background={color[format]} name={color.name} />
     ));
     return (
       <div className="Palette">
@@ -36,9 +36,11 @@ class Palette extends Component {
           changeLevel={this.changeLevel}
           handleChange={this.changeColorFormat}
         />
-        {/* Navbar will go here */}
         <div className="Palette-colors">{colorboxes}</div>
-        {/* footer will go here */}
+        <footer className="Palette-footer">
+          {paletteName}
+          <span className="emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }

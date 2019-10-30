@@ -8,7 +8,6 @@ function App() {
   return (
     <div className="App">
       <Palette palette={generatePalette(seedColors[4])} />
-      <h2>Stage 1</h2>
     </div>
   );
 }

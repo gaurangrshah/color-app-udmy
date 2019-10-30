@@ -11,6 +11,7 @@ class ColorBox extends Component {
   }
 
   changeCopyState() {
+    console.log(this.props.background);
     this.setState({ copied: true }, () => {
       setTimeout(() => this.setState({ copied: false }), 1500);
     });

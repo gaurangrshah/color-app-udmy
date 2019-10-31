@@ -4,7 +4,8 @@ export default {
     height: "100vh",
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center"
+    justifyContent: "center",
+    fontFamily: "Roboto"
   },
   container: {
     width: "50%",
@@ -17,7 +18,14 @@ export default {
     display: "flex",
     width: "100%",
     justifyContent: "space-between",
-    color: "white"
+    color: "white",
+    alignItems: "center",
+    "& a": {
+      color: "white",
+      textDecoration: "none",
+      marginRight: "3em",
+      fontWeight: "400"
+    }
   },
   palettes: {
     boxSizing: "border-box",

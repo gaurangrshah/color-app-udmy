@@ -32,25 +32,27 @@ class Navbar extends Component {
   }
 
   render() {
-    const { level, changeLevel } = this.props;
+    const { level, changeLevel, showingAllColors } = this.props;
     const { format } = this.state;
     return (
       <header className="Navbar">
         <div className="logo">
           <Link to="/">reactcolorpicker</Link>
         </div>
-        <div className="slider-container">
-          <span>Level: {level}</span>
-          <div className="slider">
-            <Slider
-              defaultValue={level} // defines starting value for slider
-              min={100} // defines min range
-              max={900} // defines max range
-              step={100} // defines increment
-              onAfterChange={changeLevel} // onchange handler
-            />
+        {showingAllColors && (
+          <div className="slider-container">
+            <span>Level: {level}</span>
+            <div className="slider">
+              <Slider
+                defaultValue={level} // defines starting value for slider
+                min={100} // defines min range
+                max={900} // defines max range
+                step={100} // defines increment
+                onAfterChange={changeLevel} // onchange handler
+              />
+            </div>
           </div>
-        </div>
+        )}
         <div className="select-container">
           <Select value={format} onChange={this.handleFormatChange}>
             {/* onChange calls changeColorFormat from palette.js */}

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Navbar from "./Navbar";
+import PaletteFooter from "./PaletteFooter";
 import ColorBox from "./ColorBox";
 
 class SingleColorPalette extends Component {
@@ -7,6 +9,8 @@ class SingleColorPalette extends Component {
     // shades will never change so instead of adding to state, we bind to the component itself:
     this._shades = this.gatherShades(this.props.palette, this.props.colorId);
     // console.log("this._shades", this._shades); // => this._shades (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+    this.state = { format: "hex" };
+    this.changeFormat = this.changeFormat.bind(this);
   }
 
   gatherShades(palette, colorsToFilterBy) {
@@ -22,20 +26,28 @@ class SingleColorPalette extends Component {
     return shades.slice(1);
     // returns as: this._shades
   }
+
+  changeFormat(val) {
+    this.setState({ format: val });
+  }
   render() {
+    const { format } = this.state;
+    const { paletteName, emoji } = this.props.palette;
     // displays all shades of a single color from palette passed in via props:
     const colorBoxes = this._shades.map(color => (
       <ColorBox
-        key={color.id}
+        key={`${color.id}${color.name}`}
         name={color.name}
-        background={color.hex}
+        background={color[format]}
         showLink={false}
       />
     ));
     return (
       <div className="Palette">
-        <span>SingleColor Palette</span>
+        <Navbar handleChange={this.changeFormat} showingAllColors={false} />
+        {/* <span>SingleColor Palette</span> */}
         <div className="Palette-colors">{colorBoxes}</div>
+        <PaletteFooter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }

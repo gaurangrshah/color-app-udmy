@@ -13,7 +13,7 @@
 }
 
 .SingleColorPalette .ColorBox {
-  height: "50%";
+  height: 50%;
 }
 
 .ColorBox.go-back {
@@ -63,6 +63,14 @@
   text-transform: uppercase;
   font-size: 12px;
   z-index: 0;
+}
+
+.light-text {
+  color: white;
+}
+
+.ColorBox .dark-text {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .see-more {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
+import chroma from "chroma-js"; // used below to handle dynamic text color
 import "./ColorBox.css";
 
 class ColorBox extends Component {
@@ -12,7 +13,7 @@ class ColorBox extends Component {
   }
 
   changeCopyState() {
-    console.log(this.props.background);
+    // console.log(this.props.background);
     this.setState({ copied: true }, () => {
       setTimeout(() => this.setState({ copied: false }), 1500);
     });
@@ -21,6 +22,12 @@ class ColorBox extends Component {
     // paletteId and id can be removed if not being used: currently using moreUrl instead
     const { name, background, paletteId, id, moreUrl, showLink } = this.props;
     const { copied } = this.state;
+    // handle text-color dependent on current background-color luminescence
+    // luminance returns all relative luminance values
+    const isDarkColor = chroma(background).luminance() <= 0.07;
+    // isDarkColor checks background value against defined throshold of '0.06'
+    const isLightColor = chroma(background).luminance() >= 0.7;
+    console.log(isDarkColor);
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div style={{ background: background }} className="ColorBox">
@@ -30,13 +37,19 @@ class ColorBox extends Component {
           />
           <div className={`copy-msg ${copied && "show"} `}>
             <h1>COPIED!</h1>
-            <p>{background}</p>
+            <p className={`${isLightColor ? "dark-text" : null}`}>
+              {background}
+            </p>
           </div>
           <div className="copy-container ">
             <div className="box-content">
-              <span>{name}</span>
+              <span className={isDarkColor ? "light-text" : null}>{name}</span>
             </div>
-            <button className="copy-button">Copy</button>
+            <button
+              className={`copy-button ${isLightColor ? "dark-text" : null}`}
+            >
+              Copy
+            </button>
           </div>
 
           {showLink && ( // helps remove the "more" link on the singleColorPalette page
@@ -47,7 +60,9 @@ class ColorBox extends Component {
               /* using stopPropagation here allows us to click the link without firing the Copy Handler as well. */
               onClick={e => e.stopPropagation()}
             >
-              <span className="see-more">MORE</span>
+              <span className={`see-more ${isLightColor ? "dark-text" : null}`}>
+                MORE
+              </span>
             </Link>
           )}
         </div>

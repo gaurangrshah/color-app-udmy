@@ -33,7 +33,7 @@ const styles = {
 };
 class PaletteList extends Component {
   goToPalette(id) {
-    console.log("ran handleClick: gotopalette");
+    // console.log("ran handleClick: gotopalette");
     // accessing the browser's {history} passed in via routeProps
     this.props.history.push(`/palette/${id}`);
   }

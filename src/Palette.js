@@ -14,7 +14,7 @@ class Palette extends Component {
   }
 
   changeLevel(level) {
-    console.log(level);
+    // console.log(level);
     this.setState({ level });
   }
 
@@ -24,7 +24,7 @@ class Palette extends Component {
 
   render() {
     const { colors, paletteName, emoji, id } = this.props.palette;
-    console.log("palette.props", this.props);
+    // console.log("palette.props", this.props);
     const { level, format } = this.state;
     // console.log(generatePalette(seedColors[4]));
     // console.log(colors);

@@ -94,6 +94,7 @@ class NewPaletteForm extends Component {
     this.updateCurrentColor = this.updateCurrentColor.bind(this);
     this.addNewColor = this.addNewColor.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -139,6 +140,22 @@ class NewPaletteForm extends Component {
     this.setState({ newName: e.target.value });
   }
 
+  handleSubmit() {
+    // temporarily hard coded palette name
+    let newName = "New Test Palette";
+    // creates a new pallete that gets passed into savePallete
+    const newPalette = {
+      paletteName: newName,
+      // create id "slug" from newName, regex replaces "spaces" w/ "-"
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      colors: this.state.colors
+    };
+    // calles savePallete from props passed in from <App />
+    this.props.savePalette(newPalette);
+    // access to history provided by "routeProps" from <App />
+    this.props.history.push("/");
+  }
+
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -148,19 +165,29 @@ class NewPaletteForm extends Component {
         <CssBaseline />
         <AppBar
           position="fixed"
+          color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open
           })}
         >
           <Toolbar disableGutters={!open}>
             <IconButton
-              color="inherit"
               aria-label="Open drawer"
               onClick={this.handleDrawerOpen}
               className={classNames(classes.menuButton, open && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              Create your palette.
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.handleSubmit}
+            >
+              Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer

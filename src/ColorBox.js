@@ -19,17 +19,13 @@ class ColorBox extends Component {
     });
   }
   render() {
-    // paletteId and id can be removed if not being used: currently using moreUrl instead
     const {
       name,
       background,
-      paletteId,
-      id,
       moreUrl,
       showingFullPalette,
       classes
     } = this.props;
-    // classes accessed from HOC withStyles / props
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>

@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import DraggableColorBox from "./DraggableColorBox";
 import { ChromePicker } from "react-color";
 // https://casesandberg.github.io/react-color/
 
@@ -55,6 +56,10 @@ const styles = theme => ({
     padding: "0 8px",
     ...theme.mixins.toolbar,
     justifyContent: "flex-end"
+  },
+  newBoxes: {
+    // screen height - appBar height
+    height: "calc(100vh - 64px)"
   },
   content: {
     flexGrow: 1,
@@ -169,11 +174,9 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <ul>
+          <ul className={classes.newBoxes}>
             {this.state.colors.map(color => (
-              <li style={{ background: color }} key={color}>
-                {color}
-              </li>
+              <DraggableColorBox color={color} />
             ))}
           </ul>
         </main>

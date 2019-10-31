@@ -167,6 +167,15 @@ class NewPaletteForm extends Component {
     this.props.history.push("/");
   }
 
+  removeColor(colorName) {
+    console.log("clicked remove", colorName);
+    this.setState({
+      // loop thru state and filter out any color.names that match colorName
+      colors: this.state.colors.filter(color => color.name !== colorName)
+      // returns a new array with the omitted color if a match was found.
+    });
+  }
+
   render() {
     const { classes } = this.props;
     const { open } = this.state;
@@ -274,7 +283,13 @@ class NewPaletteForm extends Component {
           <div className={classes.drawerHeader} />
           <ul className={classes.newBoxes}>
             {this.state.colors.map(color => (
-              <DraggableColorBox color={color.color} name={color.name} />
+              <DraggableColorBox
+                key={color.name}
+                color={color.color}
+                name={color.name}
+                // passing in the click handler bound to color.name -- used to delete
+                handleClick={() => this.removeColor(color.name)}
+              />
             ))}
           </ul>
         </main>

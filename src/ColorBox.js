@@ -19,7 +19,7 @@ class ColorBox extends Component {
   }
   render() {
     // paletteId and id can be removed if not being used: currently using moreUrl instead
-    const { name, background, paletteId, id, moreUrl } = this.props;
+    const { name, background, paletteId, id, moreUrl, showLink } = this.props;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -39,15 +39,17 @@ class ColorBox extends Component {
             <button className="copy-button">Copy</button>
           </div>
 
-          {/* using stopPropagation here allows us to click the link without firing the Copy Handler as well. */}
-          <Link
-            // moreUrl is the concatenated url to each palette from Palette.js
-            // to={`/palette/${paletteId}/${id}`}
-            to={moreUrl}
-            onClick={e => e.stopPropagation()}
-          >
-            <span className="see-more">MORE</span>
-          </Link>
+          {showLink && ( // helps remove the "more" link on the singleColorPalette page
+            <Link
+              // moreUrl is the concatenated url to each palette from Palette.js
+              // to={`/palette/${paletteId}/${id}`}
+              to={moreUrl}
+              /* using stopPropagation here allows us to click the link without firing the Copy Handler as well. */
+              onClick={e => e.stopPropagation()}
+            >
+              <span className="see-more">MORE</span>
+            </Link>
+          )}
         </div>
       </CopyToClipboard>
     );

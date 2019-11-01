@@ -8,6 +8,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 // https://github.com/NewOldMax/react-material-ui-form-validator#readme
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
+// https://github.com/missive/emoji-mart
 
 class PaletteMetaForm extends Component {
   constructor(props) {
@@ -33,30 +36,35 @@ class PaletteMetaForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+  // handleClickOpen = () => {
+  //   this.setState({ open: true });
+  // };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // };
+
+  addEmoji(e) {
+    console.log(e.target.value);
+  }
 
   render() {
     const { newPaletteName } = this.state;
+    const { handleSubmit, hideForm } = this.props;
     return (
       <Dialog
         open={this.state.open}
-        onClose={this.handleClose}
+        onClose={hideForm}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Choose a palette name</DialogTitle>
-        <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
+        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
           <DialogContent>
             <DialogContentText>
               Please enter a name for your new beautiful palette. Make sure it
               is unique!
             </DialogContentText>
-
+            <Picker onSelect={this.addEmoji} />
             <TextValidator
               name="newPaletteName"
               label="Palette Name"
@@ -72,7 +80,7 @@ class PaletteMetaForm extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={hideForm} color="primary">
               Cancel
             </Button>
             <Button

@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
 import { withStyles } from "@material-ui/styles";
 import ColorBox from "./ColorBox";
+import sizes from "./sizes";
 
 const styles = {
   Palette: {
@@ -11,6 +12,7 @@ const styles = {
     display: "flex",
     flexDirection: "column"
   },
+
   colors: {
     height: "90%"
   },
@@ -44,20 +46,20 @@ const styles = {
       textDecoration: "none",
       textTransform: "uppercase",
       border: "none"
+    },
+    [sizes.down("lg")]: {
+      width: "50%",
+      height: "33.3333%"
+    },
+    [sizes.down("md")]: {
+      width: "50%",
+      height: "20%"
+    },
+    [sizes.down("xs")]: {
+      width: "100%",
+      height: "10%"
     }
   }
-  // PaletteFooter: {
-  //   backgroundColor: "white",
-  //   height: "5vh",
-  //   display: "flex",
-  //   justifyContent: "flex-end",
-  //   alignItems: "center",
-  //   fontWeight: "bold"
-  // },
-  // emoji: {
-  //   fontSize: "1.5rem",
-  //   margin: "0 1rem"
-  // }
 };
 
 class SingleColorPalette extends Component {

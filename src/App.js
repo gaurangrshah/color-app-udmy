@@ -11,9 +11,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     // check for any locally saved palettes:
-    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    let savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
     // load local palettes (if any) else : load our seedColors
-    this.state = { palettes: savedPalettes || seedColors };
+
+    this.state = {
+      // only use saved palettes if there are any palettes on the array ||else: use seed palettes
+      palettes: savedPalettes.length !== 0 ? savedPalettes : "" || seedColors
+    };
     this.findPalette = this.findPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
     this.syncLocalStorage = this.syncLocalStorage.bind(this);

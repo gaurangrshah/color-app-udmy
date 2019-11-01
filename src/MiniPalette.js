@@ -14,7 +14,7 @@ class MiniPalette extends Component {
     e.stopPropagation();
     // stop propogation stops any other events tied to the current element
     // no bubbleup
-    this.props.handleDelete(this.props.id);
+    this.props.openDialog(this.props.id);
   }
   render() {
     // access classes from props, defined above as "styles"

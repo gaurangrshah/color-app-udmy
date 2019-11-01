@@ -169,6 +169,8 @@ class NewPaletteForm extends Component {
               colors={colors}
               removeColor={this.removeColor}
               onSortEnd={this.onSortEnd}
+              distance={10} // fixes bug where sort events swell up and do not allow delete icon to be clicked
+              // item must be dragged minimum: 10px for it to register as a drag event.
               axis="xy"
             />
           </ul>

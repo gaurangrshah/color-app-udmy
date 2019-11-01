@@ -8,7 +8,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
+import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
 import PaletteMetaForm from "./PaletteMetaForm";
 import styles from "./styles/PaletteFormNavStyles";
 
@@ -50,9 +51,13 @@ class PaletteFormNav extends Component {
             <IconButton
               aria-label="Open drawer"
               onClick={handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
+              // className={classNames(classes.menuButton, open && classes.hide)}
+              className={classNames(classes.menuButton, {
+                [classes.hide]: open
+              })}
+              // when 'open' = true, the icon is hidden, note both valid syntax examples above
             >
-              <MenuIcon />
+              <LibraryAddIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               Create your palette.

@@ -17,6 +17,7 @@ class App extends Component {
     this.findPalette = this.findPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
     this.syncLocalStorage = this.syncLocalStorage.bind(this);
+    this.deletePalette = this.deletePalette.bind(this);
   }
 
   findPalette(id) {
@@ -39,6 +40,17 @@ class App extends Component {
       JSON.stringify(this.state.palettes)
     );
   }
+
+  deletePalette(id) {
+    this.setState(
+      st => ({
+        // filter thru all palettes and filter out the one with a matching id
+        palettes: st.palettes.filter(palette => palette.id !== id)
+      }),
+      // updates local storage with current updated state
+      this.syncLocalStorage
+    );
+  }
   render() {
     return (
       <BrowserRouter>
@@ -59,7 +71,11 @@ class App extends Component {
             path="/"
             render={routeProps => (
               // assigns and passes in routeProps, allowing access to browser's {history}
-              <PaletteList palettes={this.state.palettes} {...routeProps} />
+              <PaletteList
+                palettes={this.state.palettes}
+                {...routeProps}
+                deletePalette={this.deletePalette}
+              />
             )}
           />
           <Route

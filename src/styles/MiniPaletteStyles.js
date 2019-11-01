@@ -1,3 +1,5 @@
+import sizes from "../sizes";
+
 export default {
   // define classes:
   root: {
@@ -26,8 +28,14 @@ export default {
     margin: "0",
     color: "black",
     paddingTop: "0.5rem",
-    fontSize: "0.5rem",
-    position: "relative"
+    fontSize: "0.8rem",
+    position: "relative",
+    [sizes.down("sm")]: {
+      fontSize: "0.6rem"
+    },
+    [sizes.down("xs")]: {
+      fontSize: "1rem"
+    }
   },
   emoji: {
     marginLeft: "0.5rem",

@@ -21,7 +21,9 @@ const styles = theme => ({
     width: "100%",
     padding: "0 8px",
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    background: "grey",
+    marginBottom: "1rem"
   },
   newBoxes: {
     // screen height - appBar height
@@ -50,7 +52,7 @@ const styles = theme => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center"
   },
   buttons: {

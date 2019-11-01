@@ -116,14 +116,11 @@ class NewPaletteForm extends Component {
     });
   }
 
-  handleSubmit(newPaletteName) {
+  handleSubmit(newPalette) {
     // creates a new pallete that gets passed into savePallete
-    const newPalette = {
-      paletteName: newPaletteName,
-      // create id "slug" from newPaletteName, regex replaces "spaces" w/ "-"
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      colors: this.state.colors
-    };
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
+    // create id "slug" from newPaletteName, regex replaces "spaces" w/ "-"
+    newPalette.colors = this.state.colors;
     // calles savePallete from props passed in from <App />
     this.props.savePalette(newPalette);
     // access to history provided by "routeProps" from <App />

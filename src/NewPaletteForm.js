@@ -117,7 +117,6 @@ class NewPaletteForm extends Component {
   }
 
   handleSubmit(newPaletteName) {
-    // temporarily hard coded palette name
     // creates a new pallete that gets passed into savePallete
     const newPalette = {
       paletteName: newPaletteName,
@@ -174,7 +173,6 @@ class NewPaletteForm extends Component {
       <div className={classes.root}>
         <PaletteFormNav
           open={open}
-          // classes={classes} // removed classes in refactor to <PaletteFormNav/>
           palettes={palettes}
           handleSubmit={this.handleSubmit}
           handleDrawerOpen={this.handleDrawerOpen}
@@ -244,5 +242,4 @@ class NewPaletteForm extends Component {
   }
 }
 
-// note withStyles / withTheme
 export default withStyles(styles, { withTheme: true })(NewPaletteForm);

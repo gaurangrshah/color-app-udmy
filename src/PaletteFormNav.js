@@ -60,7 +60,7 @@ class PaletteFormNav extends Component {
               <LibraryAddIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              Create your palette.
+              {!open && "Create A New palette"}
             </Typography>
           </Toolbar>
           <div className={classes.navBtns}>

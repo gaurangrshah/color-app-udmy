@@ -10,10 +10,13 @@ import { generatePalette } from "./colorHelpers";
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { palettes: seedColors };
+    // check for any locally saved palettes:
+    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    // load local palettes (if any) else : load our seedColors
+    this.state = { palettes: savedPalettes || seedColors };
     this.findPalette = this.findPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
+    this.syncLocalStorage = this.syncLocalStorage.bind(this);
   }
 
   findPalette(id) {
@@ -27,6 +30,13 @@ class App extends Component {
     this.setState(
       { palettes: [...this.state.palettes, newPalette] },
       this.syncLocalStorage
+    );
+  }
+
+  syncLocalStorage() {
+    window.localStorage.setItem(
+      "palettes",
+      JSON.stringify(this.state.palettes)
     );
   }
   render() {

@@ -33,7 +33,7 @@ class EditPaletteForm extends Component {
     console.log(this._getPalette);
 
     this.state = {
-      open: false,
+      open: true,
       colors: this._getPalette.colors || [],
       id: this.props.match.params.paletteId
     };

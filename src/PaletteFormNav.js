@@ -90,8 +90,8 @@ class PaletteFormNav extends Component {
               onClick={this.showForm}
               className={classes.button}
             >
-              {!open && !editing && `Save`}
-              {!open && editing && `Update`}
+              {!editing && `Save`}
+              {editing && `Update`}
             </Button>
           </div>
         </AppBar>

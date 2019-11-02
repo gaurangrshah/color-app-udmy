@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import PaletteFooter from "./PaletteFooter";
 import { withStyles } from "@material-ui/styles";
+
+import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
+import PaletteFooter from "./PaletteFooter";
 import styles from "./styles/SingleColorPaletteStyles";
 
 class SingleColorPalette extends Component {
@@ -11,7 +12,7 @@ class SingleColorPalette extends Component {
     super(props);
     // shades will never change so instead of adding to state, we bind to the component itself:
     this._shades = this.gatherShades(this.props.palette, this.props.colorId);
-    // console.log("this._shades", this._shades); // => this._shades (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+    // => this._shades (9) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
     this.state = { format: "hex" };
     this.changeFormat = this.changeFormat.bind(this);
   }

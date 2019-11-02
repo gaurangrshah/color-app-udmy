@@ -1,3 +1,4 @@
+import chroma from "chroma-js"; // used below to handle dynamic text color
 import sizes from "../sizes";
 
 const styles = {
@@ -33,7 +34,10 @@ const styles = {
     left: "0",
     bottom: "0",
     padding: "10px",
-    color: "rgba(0, 0, 0, 0.6)",
+    color: props =>
+      chroma(props.color).luminance() <= 0.08
+        ? "rgba(255, 255, 255, 1.0)"
+        : "rgba(0, 0, 0, 0.6)",
     letterSpacing: "1px",
     textTransform: "uppercase",
     fontSize: "12px",

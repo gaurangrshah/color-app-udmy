@@ -10,21 +10,24 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import arrayMove from "array-move";
 // allows handling drag updates with arrays
+
 import PaletteFormNav from "./PaletteFormNav";
 import DraggableColorList from "./DraggableColorList";
 import ColorPickerForm from "./ColorPickerForm";
 import styles from "./styles/NewPaletteFormStyles";
+import seedColors from "./seedColors";
 
 class NewPaletteForm extends Component {
   static defaultProps = {
-    maxColors: 20
+    maxColors: 20,
+    palettes: seedColors
   };
   constructor(props) {
     super(props);
 
     this.state = {
-      open: true,
-      colors: this.props.palettes[0].colors.slice(-10)
+      open: false,
+      colors: seedColors[0].colors.slice(-10)
     };
     this.addNewColor = this.addNewColor.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -48,7 +51,6 @@ class NewPaletteForm extends Component {
 
   addNewColor(newColor) {
     // sets state with new {color} and clears input for newName
-    console.log("ran addNewColor");
     this.setState({
       colors: [...this.state.colors, newColor],
       newColorName: ""
@@ -67,7 +69,6 @@ class NewPaletteForm extends Component {
   }
 
   removeColor(colorName) {
-    console.log("clicked remove", colorName);
     this.setState({
       // loop thru state and filter out any color.names that match colorName
       colors: this.state.colors.filter(color => color.name !== colorName)
@@ -89,13 +90,17 @@ class NewPaletteForm extends Component {
 
   addRandomColor() {
     // picks random color from existing palette
-    // "flattens" all arrays to a single array: using .flat()
-    const allColors = this.props.palettes.map(p => p.colors).flat();
+    // "flattens" all arrays to a single array: using .flat() then filters to check for matching names
+    const allColorNames = new Set(this.state.colors.map(color => color.name));
+    const allFilteredColors = this.props.palettes
+      .map(p => p.colors)
+      .flat()
+      .filter(color => !allColorNames.has(color.name));
+
     // generate random number using array length
-    let rand = Math.floor(Math.random() * allColors.length);
-    let randomColor = allColors[rand];
-    console.log(allColors);
-    // console.log(randomColor);
+    let rand = Math.floor(Math.random() * allFilteredColors.length);
+    let randomColor = allFilteredColors[rand];
+
     // adds randomly generated color to current palette on state
     this.setState({ colors: [...this.state.colors, randomColor] });
   }

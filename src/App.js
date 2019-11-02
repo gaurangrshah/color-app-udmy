@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+
 import Page from "./Page";
 import Palette from "./Palette";
 import PaletteList from "./PaletteList";
 import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
+
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 
@@ -18,11 +20,7 @@ class App extends Component {
 
     this.state = {
       // only use saved palettes if there are any palettes on the array ||else: use seed palettes
-      palettes: savedPalettes
-        ? savedPalettes.length !== 0
-          ? savedPalettes
-          : seedColors
-        : seedColors
+      palettes: savedPalettes.length <= 0 ? seedColors : savedPalettes
     };
     this.findPalette = this.findPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);

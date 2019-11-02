@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/styles";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { withStyles } from "@material-ui/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Dialog from "@material-ui/core/Dialog";
 import List from "@material-ui/core/List";
@@ -13,6 +13,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import yellow from "@material-ui/core/colors/yellow";
 import red from "@material-ui/core/colors/red";
+
 import MiniPalette from "./MiniPalette";
 import styles from "./styles/PaletteListStyles.js";
 
@@ -39,8 +40,6 @@ class PaletteList extends Component {
   }
 
   goToPalette(id) {
-    console.log("ran handleClick:", id);
-    console.log(this.props);
     // accessing the browser's {history} passed in via routeProps
     this.props.history.push(`/palette/${id}`);
   }
@@ -50,7 +49,7 @@ class PaletteList extends Component {
     const { palettes, classes } = this.props;
     const { openDeleteDialog } = this.state;
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <div className={classes.container}>
           <nav className={classes.nav}>
             <h1 className={classes.heading}>React Colors:</h1>

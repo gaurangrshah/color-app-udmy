@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styles from "./styles/MiniPaletteStyles";
 import { withStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-class MiniPalette extends Component {
+class MiniPalette extends PureComponent {
   constructor(props) {
     super(props);
 
     this.deletePalette = this.deletePalette.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   deletePalette(e) {
@@ -16,9 +17,16 @@ class MiniPalette extends Component {
     // no bubbleup
     this.props.openDialog(this.props.id);
   }
+
+  handleClick() {
+    // console.log(this.props.id);
+    this.props.goToPalette(this.props.id);
+  }
+
   render() {
     // access classes from props, defined above as "styles"
-    const { classes, paletteName, emoji, colors, handleClick } = this.props;
+    const { classes, paletteName, emoji, colors } = this.props;
+    // console.log("rendering", paletteName);
     // creates a unique class name: classes: {main: "MiniPalette-main-1"}
     const miniColorBoxes = colors.map(color => {
       return (
@@ -31,7 +39,7 @@ class MiniPalette extends Component {
     });
     return (
       // use the unique className provided by withStyles from props:
-      <div className={classes.root} onClick={handleClick}>
+      <div className={classes.root} onClick={this.handleClick}>
         <DeleteIcon
           className={classes.deleteIcon}
           // inline style to help overwrite component default transition

@@ -18,7 +18,11 @@ class App extends Component {
 
     this.state = {
       // only use saved palettes if there are any palettes on the array ||else: use seed palettes
-      palettes: savedPalettes.length !== 0 ? savedPalettes : "" || seedColors
+      palettes: savedPalettes
+        ? savedPalettes.length !== 0
+          ? savedPalettes
+          : seedColors
+        : seedColors
     };
     this.findPalette = this.findPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
@@ -85,13 +89,13 @@ class App extends Component {
                 <Route
                   exact
                   path="/"
+                  // assigns and passes in routeProps, allowing access to browser's {history}
                   render={routeProps => (
-                    // assigns and passes in routeProps, allowing access to browser's {history}
                     <Page>
                       <PaletteList
                         palettes={this.state.palettes}
-                        {...routeProps}
                         deletePalette={this.deletePalette}
+                        {...routeProps}
                       />
                     </Page>
                   )}
@@ -119,6 +123,17 @@ class App extends Component {
                         palette={generatePalette(
                           this.findPalette(routeProps.match.params.paletteId)
                         )}
+                      />
+                    </Page>
+                  )}
+                />
+                <Route
+                  render={routeProps => (
+                    <Page>
+                      <PaletteList
+                        palettes={this.state.palettes}
+                        deletePalette={this.deletePalette}
+                        {...routeProps}
                       />
                     </Page>
                   )}

@@ -50,6 +50,7 @@ export default {
     "& a": {
       color: "white",
       backgroundColor: "#2579b1",
+      padding: "10px",
       textDecoration: "none",
       marginRight: "3em",
       fontWeight: "400",

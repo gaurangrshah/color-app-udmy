@@ -24,6 +24,7 @@ class PaletteList extends Component {
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.goToPalette = this.goToPalette.bind(this);
   }
 
   openDialog(id) {
@@ -38,10 +39,12 @@ class PaletteList extends Component {
   }
 
   goToPalette(id) {
-    // console.log("ran handleClick: gotopalette");
+    console.log("ran handleClick:", id);
+    console.log(this.props);
     // accessing the browser's {history} passed in via routeProps
     this.props.history.push(`/palette/${id}`);
   }
+
   render() {
     // classes represents the styles defined above, passed into props by withStyles(HOC)
     const { palettes, classes } = this.props;
@@ -58,8 +61,8 @@ class PaletteList extends Component {
               <CSSTransition key={palette.id} classNames="fade" timeout={300}>
                 <MiniPalette
                   {...palette}
-                  handleClick={() => this.goToPalette(palette.id)}
-                  // handleDelete={deletePalette}
+                  // handleClick={() => this.goToPalette(palette.id)}
+                  goToPalette={this.goToPalette}
                   openDialog={this.openDialog}
                   key={palette.id}
                   id={palette.id}

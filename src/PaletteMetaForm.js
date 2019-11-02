@@ -15,21 +15,27 @@ import { Picker } from "emoji-mart";
 class PaletteMetaForm extends Component {
   constructor(props) {
     super(props);
-
+    const isEditing = this.props.editing;
     this.state = {
       newPaletteName: "",
-      stage: "form"
+      currentPaletteName: this.props.paletteName,
+      stage: isEditing ? "edit" : "form"
     };
     this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
     this.showEmojiPicker = this.showEmojiPicker.bind(this);
     this.savePalette = this.savePalette.bind(this);
   }
   componentDidMount() {
     ValidatorForm.addValidationRule("isPaletteNameUnique", value => {
-      return this.props.palettes.every(
-        // check newPaletteName agains each paletteName value on the [palette]
-        palette => palette.paletteName.toLowerCase() !== value.toLowerCase()
-        // returns value (either true or false) depending on above condition
+      return (
+        // added conditional to allow updating with an "edit" stage
+        this.state.stage !== "edit" &&
+        this.props.palettes.every(
+          // check newPaletteName agains each paletteName value on the [palette]
+          palette => palette.paletteName.toLowerCase() !== value.toLowerCase()
+          // returns value (either true or false) depending on above condition
+        )
       );
     });
   }
@@ -39,21 +45,26 @@ class PaletteMetaForm extends Component {
   }
 
   savePalette(emoji) {
+    console.log("save");
     const newPalette = {
-      paletteName: this.state.newPaletteName,
+      paletteName: this.state.newPaletteName || this.state.currentPaletteName,
       emoji: emoji.native
     };
-    this.props.handleSubmit(newPalette);
     this.setState({ stage: "" });
+    this.props.handleSubmit(newPalette);
   }
 
   showEmojiPicker() {
     this.setState({ stage: "emoji" });
   }
 
+  // handleSubmit() {
+  //   console.log("hnadleSubmit");
+  // }
+
   render() {
-    const { newPaletteName, stage } = this.state;
-    const { hideForm } = this.props;
+    const { newPaletteName, stage, currentPaletteName } = this.state;
+    const { hideForm, editing } = this.props;
     return (
       <div>
         <Dialog open={stage === "emoji"} onClose={hideForm}>
@@ -100,6 +111,46 @@ class PaletteMetaForm extends Component {
                 // onClick={this.handleSubmit}
               >
                 Save Palette
+              </Button>
+            </DialogActions>
+          </ValidatorForm>
+        </Dialog>
+        <Dialog
+          open={stage === "edit"}
+          onClose={hideForm}
+          aria-labelledby="edit-form-dialog-title"
+        >
+          <DialogTitle id="edit-form-dialog-title">
+            Choose a palette name
+          </DialogTitle>
+          <ValidatorForm onSubmit={this.showEmojiPicker}>
+            <DialogContent>
+              <DialogContentText>
+                Please enter a name for your new beautiful palette. Make sure it
+                is unique!
+              </DialogContentText>
+              <TextValidator
+                name="currentPaletteName"
+                label="Palette Name"
+                value={currentPaletteName}
+                onChange={this.handleChange}
+                fullWidth
+                margin="normal"
+                validators={["required"]}
+                errorMessages={["enter a valid palette name"]}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={hideForm} color="primary">
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                // onClick={this.handleSubmit}
+              >
+                Update Palette
               </Button>
             </DialogActions>
           </ValidatorForm>

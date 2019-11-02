@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import { withStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import styles from "./styles/MiniPaletteStyles";
 
 class MiniPalette extends PureComponent {
@@ -9,6 +10,7 @@ class MiniPalette extends PureComponent {
 
     this.deletePalette = this.deletePalette.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
 
   deletePalette(e) {
@@ -20,6 +22,12 @@ class MiniPalette extends PureComponent {
 
   handleClick() {
     this.props.goToPalette(this.props.id);
+  }
+
+  handleUpdateClick(e) {
+    e.stopPropagation();
+    console.log("updateClick");
+    this.props.goToEditPalette(this.props.id);
   }
 
   render() {
@@ -43,6 +51,12 @@ class MiniPalette extends PureComponent {
           // inline style to help overwrite component default transition
           style={{ transition: "all 0.3s ease-in-out" }}
           onClick={this.deletePalette}
+        />
+        <EditIcon
+          className={classes.editIcon}
+          // inline style to help overwrite component default transition
+          style={{ transition: "all 0.3s ease-in-out" }}
+          onClick={this.handleUpdateClick}
         />
 
         <div className={classes.colors}>{miniColorBoxes}</div>

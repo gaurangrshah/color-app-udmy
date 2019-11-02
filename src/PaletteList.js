@@ -26,6 +26,7 @@ class PaletteList extends Component {
     this.closeDialog = this.closeDialog.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.goToPalette = this.goToPalette.bind(this);
+    this.goToEditPalette = this.goToEditPalette.bind(this);
   }
 
   openDialog(id) {
@@ -44,6 +45,11 @@ class PaletteList extends Component {
     this.props.history.push(`/palette/${id}`);
   }
 
+  goToEditPalette(id) {
+    // accessing the browser's {history} passed in via routeProps
+    this.props.history.push(`/palette/edit/${id}`);
+  }
+
   render() {
     // classes represents the styles defined above, passed into props by withStyles(HOC)
     const { palettes, classes } = this.props;
@@ -53,7 +59,7 @@ class PaletteList extends Component {
         <div className={classes.container}>
           <nav className={classes.nav}>
             <h1 className={classes.heading}>React Colors:</h1>
-            <Link to="/palette/new">Create New</Link>
+            <Link to="/palette/new">+ Create New</Link>
           </nav>
           <TransitionGroup className={classes.palettes}>
             {palettes.map(palette => (
@@ -62,6 +68,7 @@ class PaletteList extends Component {
                   {...palette}
                   // handleClick={() => this.goToPalette(palette.id)}
                   goToPalette={this.goToPalette}
+                  goToEditPalette={this.goToEditPalette}
                   openDialog={this.openDialog}
                   key={palette.id}
                   id={palette.id}

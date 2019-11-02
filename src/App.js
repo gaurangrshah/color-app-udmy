@@ -7,6 +7,7 @@ import Palette from "./Palette";
 import PaletteList from "./PaletteList";
 import SingleColorPalette from "./SingleColorPalette";
 import NewPaletteForm from "./NewPaletteForm";
+import EditPaletteForm from "./EditPaletteForm";
 
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
@@ -86,6 +87,20 @@ class App extends Component {
                 />
                 <Route
                   exact
+                  path="/palette/edit/:paletteId"
+                  render={routeProps => (
+                    <Page>
+                      <EditPaletteForm
+                        updatePalette={this.savePalette}
+                        paletteId={routeProps.match.params.paletteId}
+                        palettes={this.state.palettes}
+                        {...routeProps}
+                      />
+                    </Page>
+                  )}
+                />
+                <Route
+                  exact
                   path="/"
                   // assigns and passes in routeProps, allowing access to browser's {history}
                   render={routeProps => (
@@ -126,6 +141,7 @@ class App extends Component {
                   )}
                 />
                 <Route
+                  // renders PaletteList as a default route, in case no other routes match
                   render={routeProps => (
                     <Page>
                       <PaletteList

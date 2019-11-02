@@ -17,7 +17,12 @@ class PaletteFormNav extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { newPaletteName: "", formShowing: false };
+    this.state = {
+      newPaletteName: "",
+      currentPaletteName: this.props.paletteName,
+      formShowing: false,
+      editing: this.props.editing
+    };
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
   }
@@ -36,9 +41,10 @@ class PaletteFormNav extends Component {
       handleSubmit,
       handleDrawerOpen,
       palettes
+      // paletteName
     } = this.props;
 
-    const { formShowing } = this.state;
+    const { formShowing, editing, currentPaletteName } = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -62,7 +68,10 @@ class PaletteFormNav extends Component {
               <LibraryAddIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              {!open && "Create A New palette"}
+              {!open && !editing && `Create Your Palette`}
+              {!open &&
+                editing &&
+                `Editing Your Palette: ${currentPaletteName}`}
             </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
@@ -81,7 +90,8 @@ class PaletteFormNav extends Component {
               onClick={this.showForm}
               className={classes.button}
             >
-              SAVE
+              {!open && !editing && `Save`}
+              {!open && editing && `Update`}
             </Button>
           </div>
         </AppBar>
@@ -90,6 +100,8 @@ class PaletteFormNav extends Component {
             palettes={palettes}
             handleSubmit={handleSubmit}
             hideForm={this.hideForm}
+            paletteName={currentPaletteName}
+            editing={editing ? editing : false}
           />
         )}
       </div>

@@ -60,5 +60,18 @@ export default {
     zIndex: "10",
     opacity: "0"
     // transition: "all 0.3s ease-in-out"
+  },
+  editIcon: {
+    color: "white",
+    backgroundColor: "blue",
+    width: "20px",
+    height: "20px",
+    position: "absolute",
+    right: "0px",
+    top: "1.68em",
+    padding: "10px",
+    zIndex: "10",
+    opacity: "0"
+    // transition: "all 0.3s ease-in-out"
   }
 };

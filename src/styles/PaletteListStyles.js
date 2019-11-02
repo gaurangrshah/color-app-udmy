@@ -49,10 +49,12 @@ export default {
     alignItems: "center",
     "& a": {
       color: "white",
-      backgroundColor: "#2579b1",
+      backgroundColor: "##fff",
+      border: "2px solid orange",
+      borderRadius: "5px",
       padding: "10px",
       textDecoration: "none",
-      marginRight: "3em",
+      marginRight: "6.5em",
       fontWeight: "400",
       [sizes.down("md")]: {
         marginRight: "1em"
